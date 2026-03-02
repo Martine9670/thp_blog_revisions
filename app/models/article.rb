@@ -1,6 +1,7 @@
 class Article < ApplicationRecord
-  has_many :comments, dependent: :destroy # Si on supprime l'article, on supprime ses commentaires
-  
-  validates :title, presence: true, length: { minimum: 5 }
-  validates :body, presence: true
+  belongs_to :user
+  has_many :comments, dependent: :destroy
+
+  validates :title, presence: true
+  validates :body, presence: true # ou :content selon le nom de ton champ
 end
