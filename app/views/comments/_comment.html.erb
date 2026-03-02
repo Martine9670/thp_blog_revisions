@@ -1,0 +1,15 @@
+<div class="card mb-2 shadow-sm">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <p class="mb-1"><strong><%= comment.commenter %></strong> a dit :</p>
+        <p class="text-muted mb-0"><%= comment.body %></p>
+      </div>
+      
+      <%= button_to "Supprimer", [comment.article, comment], 
+                    method: :delete, 
+                    class: "btn btn-outline-danger btn-sm",
+                    data: { confirm: "Supprimer ce commentaire ?" } %>
+    </div>
+  </div>
+</div>
