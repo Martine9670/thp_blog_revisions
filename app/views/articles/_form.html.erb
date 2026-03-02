@@ -17,11 +17,19 @@
   </div>
 
   <div class="mb-3">
-    <%= form.label :body, "Contenu", class: "form-control-label fw-bold" %>
+    <%= form.label :body, "Contenu", class: "form-label fw-bold" %> <%# Corrigé : form-label est mieux ici %>
     <%= form.text_area :body, class: "form-control", rows: 5, placeholder: "Écrivez votre texte ici..." %>
   </div>
 
-  <div class="mt-4">
+  <div class="mb-4 p-3 bg-light border rounded shadow-sm">
+    <div class="form-check form-switch">
+      <%= form.check_box :private, class: "form-check-input", role: "switch" %>
+      <%= form.label :private, "Rendre cet article privé ?", class: "form-check-label fw-bold" %>
+      <div class="form-text text-muted">Si activé, seul vous pourrez voir cet article dans la liste.</div>
+    </div>
+  </div>
+
+  <div class="mt-4 border-top pt-3">
     <%= form.submit "Enregistrer l'article", class: "btn btn-success btn-lg" %>
     <%= link_to "Annuler", articles_path, class: "btn btn-outline-secondary btn-lg ms-2" %>
   </div>

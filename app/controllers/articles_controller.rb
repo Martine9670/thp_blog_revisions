@@ -85,6 +85,6 @@ class ArticlesController < ApplicationController
 
     def article_params
       # Assure-toi que les noms correspondent à ta base (title et body)
-      params.require(:article).permit(:title, :body)
+      params.require(:article).permit(:title, :body, :private)
     end
 end
