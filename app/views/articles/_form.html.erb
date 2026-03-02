@@ -1,9 +1,9 @@
 <%= form_with(model: article) do |form| %>
   <% if article.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
-
-      <ul>
+    <%# Alerte rouge Bootstrap %>
+    <div class="alert alert-danger shadow-sm">
+      <h4 class="alert-heading"><%= pluralize(article.errors.count, "erreur") %> :</h4>
+      <ul class="mb-0">
         <% article.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,17 +11,18 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="mb-3">
+    <%= form.label :title, "Titre de l'article", class: "form-label fw-bold" %>
+    <%= form.text_field :title, class: "form-control", placeholder: "Entrez un titre (min. 5 caractères)" %>
   </div>
 
-  <div>
-    <%= form.label :body, style: "display: block" %>
-    <%= form.textarea :body %>
+  <div class="mb-3">
+    <%= form.label :body, "Contenu", class: "form-control-label fw-bold" %>
+    <%= form.text_area :body, class: "form-control", rows: 5, placeholder: "Écrivez votre texte ici..." %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mt-4">
+    <%= form.submit "Enregistrer l'article", class: "btn btn-success btn-lg" %>
+    <%= link_to "Annuler", articles_path, class: "btn btn-outline-secondary btn-lg ms-2" %>
   </div>
 <% end %>
