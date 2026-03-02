@@ -9,16 +9,26 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    if params[:query].present?
-      @articles = Article.where("title LIKE ?", "%#{params[:query]}%")
+    # 1. On définit la base des articles visibles
+    if user_signed_in?
+      # L'utilisateur voit les publics + SES propres articles privés
+      @articles = Article.where(private: false).or(Article.where(user: current_user))
     else
-      @articles = Article.all
+      # Un visiteur non connecté ne voit QUE les publics
+      @articles = Article.where(private: false)
     end
-    # Le scaffold gère déjà le format.json ici par défaut
-  end
-  
-  # GET /articles/1 or /articles/1.json
+
+    # 2. On applique la recherche par-dessus (si elle existe)
+    if params[:query].present?
+      @articles = @articles.where("title LIKE ?", "%#{params[:query]}%")
+    end
+  end  
+
   def show
+    # Si l'article est privé et que l'utilisateur n'est pas l'auteur
+    if @article.private && @article.user != current_user
+      redirect_to articles_path, alert: "Cet article est privé. Vous n'avez pas l'autorisation de le voir."
+    end
   end
 
   # GET /articles/new

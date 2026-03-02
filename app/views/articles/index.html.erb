@@ -33,8 +33,19 @@
   <% if @articles.any? %>
     <% @articles.each do |article| %>
       <div class="article-item border-bottom mb-3 pb-3">
+        <%# --- Badge Privé à l'intérieur de la boucle --- %>
+        <% if article.private %>
+          <span class="badge bg-warning text-dark mb-2">🔒 Privé</span>
+        <% end %>
+
         <%= render article %>
-        <%= link_to "Voir l'article", article, class: "btn btn-sm btn-link ps-0" %>
+        
+        <div class="mt-2">
+          <%= link_to "Voir l'article", article, class: "btn btn-sm btn-outline-info" %>
+          
+          <%# Optionnel : Afficher l'auteur pour vérifier le bonus 2.6.2 %>
+          <small class="text-muted ms-2">Par <%= article.user.email %></small>
+        </div>
       </div>
     <% end %>
   <% else %>
