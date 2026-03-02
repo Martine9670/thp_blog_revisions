@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  # On demande une authentification pour tout, sauf l'index et le show
+  http_basic_authenticate_with name: "martine", password: "password", except: [:index, :show]
   before_action :set_article, only: %i[ show edit update destroy ]
 
   # GET /articles or /articles.json
